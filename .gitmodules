@@ -1,3 +1,4 @@
-[submodule "CryptoSwift"]
-	path = CryptoSwift
-	url = https://github.com/krzyzanowskim/CryptoSwift.git
+
+[submodule "Submodules/CryptoSwift"]
+	path = Submodules/CryptoSwift
+	url = https://github.com/krzyzanowskim/CryptoSwift
