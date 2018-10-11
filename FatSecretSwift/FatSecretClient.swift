@@ -49,11 +49,11 @@ private enum HTTPError: LocalizedError {
  */
 
 open class FatSecretClient {
-    var timestamp: String {
+    private var timestamp: String {
         get { return String(Int(Date().timeIntervalSince1970)) }
     }
 
-    var nonce: String {
+    private var nonce: String {
         get {
             var string: String = ""
             let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
