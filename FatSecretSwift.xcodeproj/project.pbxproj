@@ -12,7 +12,6 @@
 		DB67E73F216F855100EF0E9A /* FatSecretSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67E73E216F855100EF0E9A /* FatSecretSwiftTests.swift */; };
 		DB67E741216F855100EF0E9A /* FatSecretSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = DB67E733216F855100EF0E9A /* FatSecretSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB67E753216F859000EF0E9A /* FatSecretClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67E752216F859000EF0E9A /* FatSecretClient.swift */; };
-		DB67E768216F861000EF0E9A /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB67E75E216F860100EF0E9A /* CryptoSwift.framework */; };
 		DB67E76D216F870A00EF0E9A /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67E76C216F870A00EF0E9A /* Search.swift */; };
 		DB67E76F216F873500EF0E9A /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67E76E216F873500EF0E9A /* Food.swift */; };
 		DB67E772216F8B0E00EF0E9A /* SearchedFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67E771216F8B0E00EF0E9A /* SearchedFood.swift */; };
@@ -33,48 +32,6 @@
 			remoteGlobalIDString = DB67E72F216F855100EF0E9A;
 			remoteInfo = FatSecretSwift;
 		};
-		DB67E75D216F860100EF0E9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DB67E755216F860100EF0E9A /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 754BE45519693E190098E6F3;
-			remoteInfo = CryptoSwift;
-		};
-		DB67E75F216F860100EF0E9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DB67E755216F860100EF0E9A /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 75211F92207249D8004E41F8;
-			remoteInfo = "CryptoSwift-TestHostApp";
-		};
-		DB67E761216F860100EF0E9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DB67E755216F860100EF0E9A /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 754BE46019693E190098E6F3;
-			remoteInfo = Tests;
-		};
-		DB67E763216F860100EF0E9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DB67E755216F860100EF0E9A /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7595C14A2072E48C00EA1A5F;
-			remoteInfo = "TestsPerformance-Mac";
-		};
-		DB67E765216F860100EF0E9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DB67E755216F860100EF0E9A /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7564F0602072EAEB00CA5A96;
-			remoteInfo = "TestsPerformance-iOS";
-		};
-		DB67E769216F861500EF0E9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DB67E755216F860100EF0E9A /* CryptoSwift.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 754BE45419693E190098E6F3;
-			remoteInfo = CryptoSwift;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -86,7 +43,6 @@
 		DB67E73E216F855100EF0E9A /* FatSecretSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatSecretSwiftTests.swift; sourceTree = "<group>"; };
 		DB67E740216F855100EF0E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB67E752216F859000EF0E9A /* FatSecretClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatSecretClient.swift; sourceTree = "<group>"; };
-		DB67E755216F860100EF0E9A /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		DB67E76C216F870A00EF0E9A /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		DB67E76E216F873500EF0E9A /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		DB67E771216F8B0E00EF0E9A /* SearchedFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedFood.swift; sourceTree = "<group>"; };
@@ -104,7 +60,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB67E768216F861000EF0E9A /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +80,6 @@
 				DB67E732216F855100EF0E9A /* FatSecretSwift */,
 				DB67E73D216F855100EF0E9A /* FatSecretSwiftTests */,
 				DB67E731216F855100EF0E9A /* Products */,
-				DB67E754216F85CA00EF0E9A /* Submodules */,
 				DB67E767216F861000EF0E9A /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -160,26 +114,6 @@
 				DB67E740216F855100EF0E9A /* Info.plist */,
 			);
 			path = FatSecretSwiftTests;
-			sourceTree = "<group>";
-		};
-		DB67E754216F85CA00EF0E9A /* Submodules */ = {
-			isa = PBXGroup;
-			children = (
-				DB67E755216F860100EF0E9A /* CryptoSwift.xcodeproj */,
-			);
-			path = Submodules;
-			sourceTree = "<group>";
-		};
-		DB67E756216F860100EF0E9A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DB67E75E216F860100EF0E9A /* CryptoSwift.framework */,
-				DB67E760216F860100EF0E9A /* CryptoSwift-TestHostApp.app */,
-				DB67E762216F860100EF0E9A /* Tests.xctest */,
-				DB67E764216F860100EF0E9A /* TestsPerformance-Mac.xctest */,
-				DB67E766216F860100EF0E9A /* TestsPerformance-iOS.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		DB67E767216F861000EF0E9A /* Frameworks */ = {
@@ -238,7 +172,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				DB67E76A216F861500EF0E9A /* PBXTargetDependency */,
 			);
 			name = FatSecretSwift;
 			productName = FatSecretSwift;
@@ -292,12 +225,6 @@
 			mainGroup = DB67E726216F855100EF0E9A;
 			productRefGroup = DB67E731216F855100EF0E9A /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = DB67E756216F860100EF0E9A /* Products */;
-					ProjectRef = DB67E755216F860100EF0E9A /* CryptoSwift.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				DB67E72F216F855100EF0E9A /* FatSecretSwift */,
@@ -305,44 +232,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		DB67E75E216F860100EF0E9A /* CryptoSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CryptoSwift.framework;
-			remoteRef = DB67E75D216F860100EF0E9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DB67E760216F860100EF0E9A /* CryptoSwift-TestHostApp.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "CryptoSwift-TestHostApp.app";
-			remoteRef = DB67E75F216F860100EF0E9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DB67E762216F860100EF0E9A /* Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = Tests.xctest;
-			remoteRef = DB67E761216F860100EF0E9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DB67E764216F860100EF0E9A /* TestsPerformance-Mac.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "TestsPerformance-Mac.xctest";
-			remoteRef = DB67E763216F860100EF0E9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DB67E766216F860100EF0E9A /* TestsPerformance-iOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "TestsPerformance-iOS.xctest";
-			remoteRef = DB67E765216F860100EF0E9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DB67E72E216F855100EF0E9A /* Resources */ = {
@@ -396,11 +285,6 @@
 			isa = PBXTargetDependency;
 			target = DB67E72F216F855100EF0E9A /* FatSecretSwift */;
 			targetProxy = DB67E73B216F855100EF0E9A /* PBXContainerItemProxy */;
-		};
-		DB67E76A216F861500EF0E9A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CryptoSwift;
-			targetProxy = DB67E769216F861500EF0E9A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
