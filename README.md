@@ -41,6 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 Once this has been done requests can be made by initializing the FatSecretClient.
 
+``` Swift
+let fatSecretClient = FatSecretClient()
+```
+
 ### Models
 
 All Codable structs can be found in the Models folder.
@@ -48,7 +52,6 @@ All Codable structs can be found in the Models folder.
 ### Search
 
 ``` Swift
-let fatSecretClient = FatSecretClient()
 fatSecretClient.searchFood(name: "Hotdog") { search in
     print(search.foods)
 }
@@ -57,7 +60,6 @@ fatSecretClient.searchFood(name: "Hotdog") { search in
 ### Get Food
 
 ``` Swift
-let fatSecretClient = FatSecretClient()
 fatSecretClient.getFood(id: "16758") { food in
     print(food)
 }
