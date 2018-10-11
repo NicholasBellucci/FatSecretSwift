@@ -49,7 +49,7 @@ All Codable structs can be found in the Models folder.
 
 ``` Swift
 let fatSecretClient = FatSecretClient()
-fatSecretClient.searchFood(by: "Hotdog") { search in
+fatSecretClient.searchFood(name: "Hotdog") { search in
     print(search.foods)
 }
 ```
@@ -58,7 +58,7 @@ fatSecretClient.searchFood(by: "Hotdog") { search in
 
 ``` Swift
 let fatSecretClient = FatSecretClient()
-fatSecretClient.getFood(by: "16758") { food in
+fatSecretClient.getFood(id: "16758") { food in
     print(food)
 }
 ```
