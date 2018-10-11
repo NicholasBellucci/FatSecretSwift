@@ -68,7 +68,7 @@ open class FatSecretClient {
     /** Search
      - Description: Search for a food by name
      */
-    public func searchFood(by name: String, completion: @escaping (_ foods: Search) -> ()) {
+    public func searchFood(name: String, completion: @escaping (_ foods: Search) -> ()) {
         FatSecretParams.fatSecret = ["format":"json", "method":"foods.search", "search_expression":name] as Dictionary
 
         let components = generateSignature()
@@ -83,7 +83,7 @@ open class FatSecretClient {
     /** Food
      - Description: Get a food item by id
      */
-    public func getFood(by id: String, completion: @escaping (_ foods: Food) -> ()) {
+    public func getFood(id: String, completion: @escaping (_ foods: Food) -> ()) {
         FatSecretParams.fatSecret = ["format":"json", "method":"food.get", "food_id":id] as Dictionary
 
         let components = generateSignature()
