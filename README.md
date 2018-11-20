@@ -1,5 +1,5 @@
 # FatSecretSwift
-FatSecretSwift is a Framework built to help connect to the FatSecret REST api. Currently the framework supports ```foods.search``` and ```food.get```. The demo can be found here: https://github.com/NicholasBellucci/FatSecretSwiftDemo
+FatSecretSwift is a Framework built to help connect to the FatSecret REST api. Currently the framework supports ```foods.search``` and ```food.get```.
 
 ## Requirements
 * iOS 12
