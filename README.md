@@ -30,9 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        let credential = FatSecretCredentials()
-        credential.setConsumerKey(Constants.apiKey)
-        credential.setSharedSecret(Constants.apiSecret)
+        FatSecretCredentials.setConsumerKey(Constants.apiKey)
+        FatSecretCredentials.setSharedSecret(Constants.apiSecret)
 
         return true
     }
