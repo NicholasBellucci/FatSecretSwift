@@ -16,9 +16,10 @@ internal extension String {
         let digits = "0123456789"
         let lowercase = "abcdefghijklmnopqrstuvwxyz"
         let uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        let reserved = "-._~"
+        let reserved = ":/?#[]@!$&'()*+,;="
+        let unreserved = "-._~"
 
-        return digits + lowercase + uppercase + reserved
+        return digits + lowercase + uppercase + reserved + unreserved
     }
 
     // Creates the signature string based on the consumer key and signature base string
