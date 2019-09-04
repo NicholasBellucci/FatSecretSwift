@@ -12,7 +12,13 @@ import XCTest
 class FatSecretSwiftTests: XCTestCase {
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        enum Constants {
+            static let apiKey = "Insert API Key Here"
+            static let apiSecret = "Insert API Secret Here"
+        }
+
+        FatSecretCredentials.setConsumerKey(Constants.apiKey)
+        FatSecretCredentials.setSharedSecret(Constants.apiSecret)
     }
 
     override func tearDown() {
@@ -20,8 +26,15 @@ class FatSecretSwiftTests: XCTestCase {
     }
 
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let expectation = XCTestExpectation(description: "Search call")
+        let fatSecretClient = FatSecretClient()
+        
+        fatSecretClient.searchFood(name: "coco-cola classic (12 oz)") { search in
+            XCTAssertNotNil(search)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 10.0)
     }
 
     func testPerformanceExample() {

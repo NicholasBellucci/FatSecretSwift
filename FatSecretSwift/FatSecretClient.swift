@@ -137,17 +137,19 @@ extension FatSecretClient {
         FatSecretParams.oAuth.updateValue(self.timestamp, forKey: "oauth_timestamp")
         FatSecretParams.oAuth.updateValue(self.nonce, forKey: "oauth_nonce")
 
-        var components = URLComponents(string: FatSecretParams.url)!
-        components.createItemsForURLComponentsObject(array: Array<String>().parameters)
+        var oauthComponents = URLComponents(string: FatSecretParams.url)!
+        oauthComponents.componentsForOAuthSignature(from: Array<String>().parameters)
 
-        let parameters = components.getURLParameters()
+        let parameters = oauthComponents.getURLParameters()
         let encodedURL = FatSecretParams.url.addingPercentEncoding(withAllowedCharacters: CharacterSet().percentEncoded)!
         let encodedParameters = parameters.addingPercentEncoding(withAllowedCharacters: CharacterSet().percentEncoded)!
-        let signatureBaseString = "\(FatSecretParams.httpType)&\(encodedURL)&\(encodedParameters)".replacingOccurrences(of: "%20", with: "%2520")
+        let signatureBaseString = "\(FatSecretParams.httpType)&\(encodedURL)&\(encodedParameters)"
         let signature = String().getSignature(key: FatSecretParams.key, params: signatureBaseString)
 
-        components.queryItems?.append(URLQueryItem(name: "oauth_signature", value: signature))
-        return components
+        var urlComponents = URLComponents(string: FatSecretParams.url)!
+        urlComponents.componentsForURL(from: Array<String>().parameters)
+        urlComponents.queryItems?.append(URLQueryItem(name: "oauth_signature", value: signature))
+        return urlComponents
     }
 
     fileprivate func checkForError(with code: Int) throws {

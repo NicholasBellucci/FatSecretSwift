@@ -16,10 +16,15 @@ internal extension String {
         let digits = "0123456789"
         let lowercase = "abcdefghijklmnopqrstuvwxyz"
         let uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        let reserved = ":/?#[]@!$&'()*+,;="
         let unreserved = "-._~"
 
-        return digits + lowercase + uppercase + reserved + unreserved
+        return digits + lowercase + uppercase + unreserved
+    }
+
+    // Reserved character set for URL as described in RFC 3986
+    // These characters are reserved for a URL but we need to percent encode when creating the OAuth Signature
+    func replaceReservedCharacters() -> String {
+        return addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;= ").inverted)!
     }
 
     // Creates the signature string based on the consumer key and signature base string
