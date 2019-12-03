@@ -10,7 +10,6 @@ import XCTest
 @testable import FatSecretSwift
 
 class FatSecretSwiftTests: XCTestCase {
-
     override func setUp() {
         enum Constants {
             static let apiKey = "Insert API Key Here"
@@ -21,11 +20,7 @@ class FatSecretSwiftTests: XCTestCase {
         FatSecretCredentials.setSharedSecret(Constants.apiSecret)
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
+    func testSearch() {
         let expectation = XCTestExpectation(description: "Search call")
         let fatSecretClient = FatSecretClient()
         
@@ -36,12 +31,4 @@ class FatSecretSwiftTests: XCTestCase {
 
         wait(for: [expectation], timeout: 10.0)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
