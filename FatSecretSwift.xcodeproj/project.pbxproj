@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		DB432EAB216F9DC3003C4EF2 /* FatSecretCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB432EAA216F9DC3003C4EF2 /* FatSecretCredentials.swift */; };
-		DB432EE7216FADD5003C4EF2 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB432EDE216FADCC003C4EF2 /* CryptoSwift.framework */; };
+		DB432EE7216FADD5003C4EF2 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB432EDE216FADCC003C4EF2 /* CryptoSwift.framework */; platformFilter = ios; };
 		DB67E73A216F855100EF0E9A /* FatSecretSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB67E730216F855100EF0E9A /* FatSecretSwift.framework */; };
 		DB67E73F216F855100EF0E9A /* FatSecretSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67E73E216F855100EF0E9A /* FatSecretSwiftTests.swift */; };
 		DB67E741216F855100EF0E9A /* FatSecretSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = DB67E733216F855100EF0E9A /* FatSecretSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -395,6 +395,7 @@
 		DB432EE9216FADDC003C4EF2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CryptoSwift;
+			platformFilter = ios;
 			targetProxy = DB432EE8216FADDC003C4EF2 /* PBXContainerItemProxy */;
 		};
 		DB67E73C216F855100EF0E9A /* PBXTargetDependency */ = {
@@ -547,6 +548,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.FatSecretSwift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -573,6 +575,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.FatSecretSwift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -24,7 +24,7 @@ internal extension String {
     // Reserved character set for URL as described in RFC 3986
     // These characters are reserved for a URL but we need to percent encode when creating the OAuth Signature
     func replaceReservedCharacters() -> String {
-        return addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;= ").inverted)!
+        return addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "%:/?#[]@!$&'()*+,;= ").inverted)!
     }
 
     // Creates the signature string based on the consumer key and signature base string
