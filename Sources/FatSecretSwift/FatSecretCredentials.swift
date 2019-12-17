@@ -1,13 +1,3 @@
-//
-//  FatSecretCredentials.swift
-//  FatSecretSwift
-//
-//  Created by Nicholas Bellucci on 10/11/18.
-//  Copyright © 2018 Nicholas Bellucci. All rights reserved.
-//
-
-import Foundation
-
 public struct FatSecretCredentials {
     public static func setConsumerKey(_ key: String) {
         FatSecretParams.oAuth.updateValue(key, forKey: "oauth_consumer_key")

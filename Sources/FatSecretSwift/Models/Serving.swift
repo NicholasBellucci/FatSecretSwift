@@ -1,13 +1,3 @@
-//
-//  Serving.swift
-//  FatSecretSwift
-//
-//  Created by Nicholas Bellucci on 10/11/18.
-//  Copyright © 2018 Nicholas Bellucci. All rights reserved.
-//
-
-import Foundation
-
 public struct Serving: Decodable {
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case calcium, calories, carbohydrate, cholesterol, fat, fiber, iron, potassium, protein, sodium, sugar
