@@ -2,20 +2,22 @@
 FatSecretSwift is a Framework built to help connect to the FatSecret REST api. Currently the framework supports ```foods.search``` and ```food.get```.
 
 ## Requirements
-* iOS 12
+Xcode 10.x or a Swift 4.2/5.x toolchain with Swift Package Manager.
 
 ## Installation
 
-FatSecretSwift is currently only available by adding it as a submodule to your project.
+For use with an Xcode project, FatSecretSwift can be added by navigating to `File > Swift Packages > Add Package Dependency...` and adding `https://github.com/NicholasBellucci/FatSecretSwift.git`
 
-```git submodule add https://github.com/NicholasBellucci/FatSecretSwift.git```
+Xcode will give a few options when it comes to the rules. Feel free to choose between using the latest release or master as both should align.
+
+FatSecretSwift can also be added through a `Package.swift` file. Just include `.package(url: "https://github.com/NicholasBellucci/FatSecretSwift.git", from: "0.1.0")` as a dependency.
+
 
 ## Usage
 
-First step is to initialize your personal credentials. In the demo project this is done in the App Delegate but you can do this wherever you want so long as it is done before your API request.
+First step is to initialize your personal credentials. In the example this is done in the AppDelegate but this can be done wherever so long as it is done before any API request.
 
-``` Swift
-
+``` swift
 import FatSecretSwift
 
 @UIApplicationMain
@@ -24,9 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         static let apiKey = ""
         static let apiSecret = ""
     }
-
-    var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -44,10 +43,6 @@ Once this has been done requests can be made by initializing the FatSecretClient
 let fatSecretClient = FatSecretClient()
 ```
 
-### Models
-
-All Codable structs can be found in the Models folder.
-
 ### Search
 
 ``` Swift
@@ -64,10 +59,6 @@ fatSecretClient.getFood(id: "16758") { food in
 }
 ```
 
-## Author
-
-Nicholas Bellucci, nickdbellucci@gmail.com
-
 ## License
 
-FatSecretSwift is available under the MIT license.
+SociableWeaver is, and always will be, MIT licensed. See [LICENSE](LICENSE) for details.

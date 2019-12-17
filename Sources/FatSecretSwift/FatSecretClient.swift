@@ -1,12 +1,4 @@
-//
-//  FatSecretClient.swift
-//  FatSecretSwift
-//
-//  Created by Nicholas Bellucci on 10/11/18.
-//  Copyright © 2018 Nicholas Bellucci. All rights reserved.
-//
-
-import UIKit
+import Foundation
 import CryptoSwift
 
 /**
@@ -74,7 +66,7 @@ open class FatSecretClient {
         let components = generateSignature()
         fatSecretRequest(with: components) { data in
             guard let data = data else { return }
-            let model = self.retrieve(data: data, type: [String:Search].self)
+            let model = self.retrieve(data: data, type: [String: Search].self)
             let search = model!["foods"]
             completion(search!)
         }

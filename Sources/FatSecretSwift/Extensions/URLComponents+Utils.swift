@@ -1,16 +1,10 @@
-//
-//  URLComponents+Utils.swift
-//  FatSecretSwift
-//
-//  Created by Nicholas Bellucci on 10/11/18.
-//  Copyright © 2018 Nicholas Bellucci. All rights reserved.
-//
-
 import Foundation
 
 internal extension URLComponents {
-    // Creates URLQueryItems for URLComponent
-    // Used for HTTP request
+    /**
+    Creates URLQueryItems for URLComponent.
+     Used for HTTP request.
+     */
     mutating func componentsForURL(from array: [(key: String, value: String)]) {
         var queryItems = [URLQueryItem]()
 
@@ -21,8 +15,10 @@ internal extension URLComponents {
         self.queryItems = queryItems
     }
 
-    // Creates URLQueryItems for URLComponent
-    // Used for OAuth Signature
+    /**
+    Creates URLQueryItems for URLComponent.
+     Used for OAuth Signature.
+     */
     mutating func componentsForOAuthSignature(from array: [(key: String, value: String)]) {
         var queryItems = [URLQueryItem]()
 
@@ -40,8 +36,10 @@ internal extension URLComponents {
         self.queryItems = queryItems
     }
 
-    // Returns the url parameters concatenated together
-    // Parameters are seperated by '&'
+    /**
+    Returns the url parameters concatenated together.
+     Parameters are seperated by '&'.
+     */
     func getURLParameters() -> String {
         let queryItems = self.queryItems!
         var params = ""

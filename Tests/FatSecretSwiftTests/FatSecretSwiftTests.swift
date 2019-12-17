@@ -1,15 +1,7 @@
-//
-//  FatSecretSwiftTests.swift
-//  FatSecretSwiftTests
-//
-//  Created by Nicholas Bellucci on 10/11/18.
-//  Copyright © 2018 Nicholas Bellucci. All rights reserved.
-//
-
 import XCTest
 @testable import FatSecretSwift
 
-class FatSecretSwiftTests: XCTestCase {
+final class FatSecretSwiftTests: XCTestCase {
     override func setUp() {
         enum Constants {
             static let apiKey = "Insert API Key Here"
@@ -23,7 +15,7 @@ class FatSecretSwiftTests: XCTestCase {
     func testSearch() {
         let expectation = XCTestExpectation(description: "Search call")
         let fatSecretClient = FatSecretClient()
-        
+
         fatSecretClient.searchFood(name: "coco-cola classic (12 oz)") { search in
             XCTAssertNotNil(search)
             expectation.fulfill()
@@ -31,4 +23,8 @@ class FatSecretSwiftTests: XCTestCase {
 
         wait(for: [expectation], timeout: 10.0)
     }
+
+    static var allTests = [
+        ("testSearch", testSearch),
+    ]
 }
