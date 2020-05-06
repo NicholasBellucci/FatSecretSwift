@@ -14,7 +14,7 @@ internal struct FatSecretParams {
     static var key = ""
 
     /// Fat Secret API URL
-    static let url = "http://platform.fatsecret.com/rest/server.api"
+    static let url = "https://platform.fatsecret.com/rest/server.api"
 
     /// Fat Secret HTTP Request Method
     static let httpType = "POST"
