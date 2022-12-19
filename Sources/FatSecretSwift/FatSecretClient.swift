@@ -125,6 +125,78 @@ extension FatSecretClient {
         }
     }
 
+    
+    func fatSecretRecipeSearchRequest(with components: URLComponents, completed: @escaping (Result<FSPRecipes, FBError>) -> Void) {
+        var request = URLRequest(url: URL(string: String(describing: components).replacingOccurrences(of: "+", with: "%2B"))!)
+        request.httpMethod = FatSecretParams.httpType
+
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let _ = error {
+                completed(.failure(.unableToComplete))
+                return
+            }
+            
+            // error code '200' = OK, i.e., no error.
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+            
+            // After 'guard' error checks, no get/decode the data
+            do {
+                let decoder = JSONDecoder()
+                let recipes = try decoder.decode(FSPRecipeSearch.self, from: data)
+                completed(.success(recipes.recipes)) // escaping value 'recipes.recipes' is of type 'FSPRecipes'
+            } catch {
+                print("Unable to retreive recipes, error: ", error.localizedDescription)
+                completed(.failure(.invalidData))
+            }
+        }
+        task.resume()
+    }
+    
+    
+    func fatSecretRecipeIDRequest(with components: URLComponents, completed: @escaping (Result<FSPSingleRecipe, FBError>) -> Void) {
+        var request = URLRequest(url: URL(string: String(describing: components).replacingOccurrences(of: "+", with: "%2B"))!)
+        request.httpMethod = FatSecretParams.httpType
+
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let _ = error {
+                completed(.failure(.unableToComplete))
+                return
+            }
+            
+            // error code '200' = OK, i.e., no error.
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+            
+            // After 'guard' error checks, no get/decode the data
+            do {
+                let decoder = JSONDecoder()
+                let recipeID = try decoder.decode(FSPRecipeIDSearch.self, from: data)
+                completed(.success(recipeID.recipe)) // escaping value 'recipeID.recipe' is of type 'FSPSingleRecipe'
+            } catch {
+                print("Unable to retreive recipes, error: ", error.localizedDescription)
+                completed(.failure(.invalidData))
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
     fileprivate func generateSignature() -> URLComponents {
         FatSecretParams.oAuth.updateValue(self.timestamp, forKey: "oauth_timestamp")
         FatSecretParams.oAuth.updateValue(self.nonce, forKey: "oauth_nonce")
