@@ -86,6 +86,50 @@ open class FatSecretClient {
             completion(food!)
         }
     }
+    
+    
+    /** Recipe Search
+     - Description: Search for a recipe by name
+     */
+    public func searchRecipe(name: String, completion: @escaping (_ recipes: FSPRecipes) -> Void) {
+        print("\nFatSecretClient/searchRecipe....")
+        FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v2", "search_expression":name] as Dictionary
+
+        let components = generateSignature()
+        fatSecretRecipeSearchRequest(with: components) { result in
+            switch result {
+            case .success(let recipes):
+                print("Successfully found recipes over internet.")
+                completion(recipes)
+
+            case .failure(let error):
+                print("Unable to load searched recipes from internet", error.localizedDescription)
+            }
+        }
+    }
+
+    /** Recipe
+     - Description: Get a recipe item by id
+     */
+    public func getRecipe(id: String, completion: @escaping (_ recipes: FSPSingleRecipe) -> Void) {
+        print("\nFatSecretClient/searchRecipe....")
+        FatSecretParams.fatSecret = ["format":"json", "method":"recipe.get", "recipe_id":id] as Dictionary
+
+        let components = generateSignature()
+        fatSecretRecipeIDRequest(with: components) { result in
+            switch result {
+            case .success(let recipe):
+                print("Successfully found recipes over internet.")
+                completion(recipe)
+
+            case .failure(let error):
+                print("Unable to load searched recipes from internet", error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    
 
     public init() {}
 }
