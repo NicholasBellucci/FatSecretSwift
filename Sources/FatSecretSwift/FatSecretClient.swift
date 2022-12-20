@@ -93,7 +93,7 @@ open class FatSecretClient {
      */
     public func searchRecipe(name: String, completion: @escaping (_ recipes: FSPRecipes) -> Void) {
         print("\nFatSecretClient/searchRecipe....")
-        FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v2", "search_expression":name] as Dictionary
+        FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v2", "must_have_images":"true", "search_expression":name] as Dictionary
 
         let components = generateSignature()
         fatSecretRecipeSearchRequest(with: components) { result in
