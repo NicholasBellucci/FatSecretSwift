@@ -31,7 +31,7 @@ internal extension String {
         var array = [UInt8]()
         array += params.utf8
 
-        let sign = try! HMAC(key: key, variant: .sha1).authenticate(array).toBase64()!
+        let sign = try! HMAC(key: key, variant: .sha1).authenticate(array).toBase64()
 
         return sign
     }
