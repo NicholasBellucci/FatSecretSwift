@@ -111,7 +111,7 @@ open class FatSecretClient {
     /** Recipe
      - Description: Get a recipe item by id
      */
-    public func getRecipe(id: String, completion: @escaping (_ recipes: FSPSingleRecipe) -> Void) {
+    public func getRecipe(id: String, completion: @escaping (_ recipe: FSPSingleRecipe?) -> Void) {
         print("\nFatSecretClient/searching for Recipe ID....")
         FatSecretParams.fatSecret = ["format":"json", "method":"recipe.get", "recipe_id":id] as Dictionary
 
