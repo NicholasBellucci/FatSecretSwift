@@ -91,7 +91,7 @@ open class FatSecretClient {
     /** Recipe Search
      - Description: Search for a recipe by name
      */
-    public func searchRecipe(name: String, completion: @escaping (_ recipes: FSPRecipes) -> Void) {
+    public func searchRecipe(name: String, completion: @escaping (_ recipes: FSPRecipes?) -> Void) {
         print("\nFatSecretClient/searchRecipe....")
         FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v2", "must_have_images":"true", "search_expression":name] as Dictionary
 
