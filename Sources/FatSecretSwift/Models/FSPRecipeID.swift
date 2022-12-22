@@ -114,6 +114,30 @@ public struct RecipeTypes: Codable, Hashable {
 }
 
 
+extension RecipeTypes {
+    public enum CodingKeys: String, CodingKey, CaseIterable {
+        case recipe_type
+    }
+    
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            do {
+                let recipeType  = try container.decode([String].self, forKey: .recipe_type)
+                self.init(recipe_type: recipeType)
+            } catch {
+                let recipeStringType = (try? container.decode(String.self, forKey: .recipe_type)) ?? ""
+                let recipeType = [recipeStringType]
+                self.init(recipe_type: recipeType)
+            }
+        } catch {
+            self.init(recipe_type: ["n/a"])
+        }
+    }
+}
+
+
+
 /** A type that is a 'serving_sizes' property of FSPSingleRecipe, for decoding FatSecretSwift Recipe ID JSON. */
 public struct FSPRecipeServing: Codable, Hashable {
     public let serving: FSPRecipeServingInfo
@@ -201,4 +225,5 @@ extension FSPRecipeServingInfo {
             self.init(calcium: 0.0, calories: 0.0, carbohydrate: 0.0, cholesterol: 0.0, fat: 0.0, fiber: 0.0, iron: 0.0, monounsaturated_fat: 0.0, polyunsaturated_fat: 0.0, potassium: 0.0, protein: 0.0, saturated_fat: 0.0, serving_size: 0.0, sodium: 0.0, sugar: 0.0, trans_fat: 0.0, vitamin_a: 0.0, vitamin_c: 0.0)
         }
     }
+    
 }
