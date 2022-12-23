@@ -39,7 +39,7 @@ public struct FSPRecipeIDSearch: Codable, Hashable {
 /** A type that is a recipe property of FSPRecipeIDSearch for decoding FatSecretSwift Recipe ID Search JSON. */
 public struct FSPSingleRecipe: Codable, Hashable {
     public let cooking_time_min: String?
-    public let directions: Directions
+    public let directions: Directions?
     public let ingredients: Ingredients
     
     public let number_of_servings: String
@@ -61,6 +61,28 @@ public struct FSPSingleRecipe: Codable, Hashable {
 /** A type that is a 'directions' property of FSPSingleRecipe, for decoding FatSecretSwift Recipe ID Search JSON. */
 public struct Directions: Codable, Hashable {
     public let direction: [Direction]
+}
+
+
+extension Directions {
+    public enum CodingKeys: String, CodingKey, Hashable {
+        case direction
+    }
+    
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            do {
+                let directions = try container.decode([Direction].self, forKey: .direction)
+                self.init(direction: directions)
+            } catch {
+                let direction = try container.decode(Direction.self, forKey: .direction)
+                self.init(direction: [direction])
+            }
+        } catch {
+            self.init(direction: [Direction(direction_description: "n/a", direction_number: "0")])
+        }
+    }
 }
 
 
