@@ -51,7 +51,7 @@ public struct FSPSingleRecipe: Codable, Hashable {
     public let recipe_id: String
     public let recipe_images: RecipeImage
     public let recipe_name: String
-    public let recipe_types: RecipeTypes
+    public let recipe_types: RecipeTypes?
     public let recipe_url: URL?
     
     public let serving_sizes: FSPRecipeServing
