@@ -95,6 +95,28 @@ public struct RecipeCategories: Codable, Hashable {
 }
 
 
+extension RecipeCategories {
+    public enum CodingKeys: String, CodingKey, CaseIterable {
+        case recipe_category
+    }
+    
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            do {
+                let recipeCategories = try container.decode([RecipeCategory].self, forKey: .recipe_category)
+                self.init(recipe_category: recipeCategories)
+            } catch {
+                let recipeCategory = try container.decode(RecipeCategory.self, forKey: .recipe_category)
+                self.init(recipe_category: [recipeCategory])
+            }
+        } catch {
+            self.init(recipe_category: [RecipeCategory(recipe_category_name: "no category name", recipe_category_url: nil)])
+        }
+    }
+}
+
+
 /** A RecipeCategories.recipe_category array item type for decoding FatSecretSwift Recipe ID JSON. */
 public struct RecipeCategory: Codable, Hashable {
     public let recipe_category_name: String
@@ -104,7 +126,29 @@ public struct RecipeCategory: Codable, Hashable {
 
 /** A type that is a 'recipe_images' property of FSPSingleRecipe, for decoding FatSecretSwift Recipe ID JSON. */
 public struct RecipeImage: Codable, Hashable {
-    public let recipe_image: URL?
+    public let recipe_image: [URL]?
+}
+
+
+extension RecipeImage {
+    public enum CodingKeys: String, CodingKey, CaseIterable {
+        case recipe_image
+    }
+    
+    public init(from decoder: Decoder) throws {
+        do {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            do {
+                let recipeImages = try container.decode([URL].self, forKey: .recipe_image)
+                self.init(recipe_image: recipeImages)
+            } catch {
+                let recipeImage = try container.decode(URL.self, forKey: .recipe_image)
+                self.init(recipe_image: [recipeImage])
+            }
+        } catch {
+            self.init(recipe_image: nil)
+        }
+    }
 }
 
 
