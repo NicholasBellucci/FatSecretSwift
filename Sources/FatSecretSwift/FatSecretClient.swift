@@ -91,9 +91,9 @@ open class FatSecretClient {
     /** Recipe Search
      - Description: Search for a recipe by name
      */
-    public func searchRecipe(name: String, completion: @escaping (_ recipes: FSPRecipes) -> Void) {
+    public func searchRecipe(name: String, completion: @escaping (_ recipes: FSPRecipes?) -> Void) {
         print("\nFatSecretClient/searchRecipe....")
-        FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v2", "search_expression":name] as Dictionary
+        FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v2", "must_have_images":"true", "search_expression":name] as Dictionary
 
         let components = generateSignature()
         fatSecretRecipeSearchRequest(with: components) { result in
@@ -111,7 +111,7 @@ open class FatSecretClient {
     /** Recipe
      - Description: Get a recipe item by id
      */
-    public func getRecipe(id: String, completion: @escaping (_ recipes: FSPSingleRecipe) -> Void) {
+    public func getRecipe(id: String, completion: @escaping (_ recipe: FSPSingleRecipe?) -> Void) {
         print("\nFatSecretClient/searching for Recipe ID....")
         FatSecretParams.fatSecret = ["format":"json", "method":"recipe.get", "recipe_id":id] as Dictionary
 

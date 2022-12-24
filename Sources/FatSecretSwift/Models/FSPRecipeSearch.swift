@@ -4,7 +4,10 @@
 //
 //  Created by Fern Botelho on 12/19/22.
 //
+<<<<<<< HEAD
 //
+=======
+>>>>>>> AddRecipeSearch_wFilters
 //    MIT License
 //
 //    Copyright (c) 2022 Fernando Botelho.
