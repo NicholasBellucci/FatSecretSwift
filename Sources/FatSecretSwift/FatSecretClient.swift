@@ -91,7 +91,7 @@ open class FatSecretClient {
     /** Recipe Search
      - Description: Search for a recipe by name
      */
-    public func searchRecipe(name: String, completion: @escaping (_ recipes: FSPRecipes?) -> Void) {
+    public func searchRecipe(name: String, completion: @escaping (Result<FSPRecipes, FBError>) -> Void) {
         print("\nFatSecretClient/searchRecipe....")
         FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v2", "must_have_images":"true", "search_expression":name] as Dictionary
 
@@ -100,10 +100,11 @@ open class FatSecretClient {
             switch result {
             case .success(let recipes):
                 print("Successfully found recipes over internet.")
-                completion(recipes)
+                completion(.success(recipes))
 
             case .failure(let error):
                 print("Unable to load searched recipes from internet", error.localizedDescription)
+                completion(.failure(.unableToComplete))
             }
         }
     }
@@ -111,7 +112,7 @@ open class FatSecretClient {
     /** Recipe
      - Description: Get a recipe item by id
      */
-    public func getRecipe(id: String, completion: @escaping (_ recipe: FSPSingleRecipe?) -> Void) {
+    public func getRecipe(id: String, completion: @escaping (Result<FSPSingleRecipe, FBError>) -> Void) {
         print("\nFatSecretClient/searching for Recipe ID....")
         FatSecretParams.fatSecret = ["format":"json", "method":"recipe.get", "recipe_id":id] as Dictionary
 
@@ -120,10 +121,11 @@ open class FatSecretClient {
             switch result {
             case .success(let recipe):
                 print("Successfully found recipe id over internet.")
-                completion(recipe)
+                completion(.success(recipe))
 
             case .failure(let error):
                 print("Unable to load searched for recipe id from internet", error.localizedDescription)
+                completion(.failure(.unableToComplete))
             }
         }
     }
