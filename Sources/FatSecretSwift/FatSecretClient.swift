@@ -104,7 +104,7 @@ open class FatSecretClient {
 
             case .failure(let error):
                 print("Unable to load searched recipes from internet", error.localizedDescription)
-                completion(.failure(.unableToComplete))
+                completion(.failure(.unableToGetRecipes))
             }
         }
     }
@@ -125,7 +125,7 @@ open class FatSecretClient {
 
             case .failure(let error):
                 print("Unable to load searched for recipe id from internet", error.localizedDescription)
-                completion(.failure(.unableToComplete))
+                completion(.failure(.unableToGetRecipes))
             }
         }
     }
