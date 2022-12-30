@@ -43,7 +43,7 @@ public struct FSPSingleRecipe: Codable, Hashable {
     public let ingredients: Ingredients
     
     public let number_of_servings: String
-    public let preparation_time_min: String
+    public let preparation_time_min: String?
     public let rating: String?
     
     public let recipe_categories: RecipeCategories?
