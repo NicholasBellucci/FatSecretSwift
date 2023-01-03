@@ -49,7 +49,7 @@ public struct FSPSingleRecipe: Codable, Hashable {
     public let recipe_categories: RecipeCategories?
     public let recipe_description: String
     public let recipe_id: String
-    public let recipe_images: RecipeImage
+    public let recipe_images: RecipeImage?
     public let recipe_name: String
     public let recipe_types: RecipeTypes?
     public let recipe_url: URL?
@@ -176,7 +176,13 @@ extension RecipeImage {
 
 /** A type that is a 'recipe_types' property of FSPSingleRecipe, for decoding FatSecretSwift Recipe ID JSON. */
 public struct RecipeTypes: Codable, Hashable {
-    public let recipe_type: [String]
+    public let recipe_type: RecipeType
+    public var associatedValue: [String]
+}
+
+public enum RecipeType: Codable, Hashable {
+    case string(String)
+    case stringArray([String])
 }
 
 
@@ -188,16 +194,15 @@ extension RecipeTypes {
     public init(from decoder: Decoder) throws {
         do {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            do {
-                let recipeType  = try container.decode([String].self, forKey: .recipe_type)
-                self.init(recipe_type: recipeType)
-            } catch {
-                let recipeStringType = (try? container.decode(String.self, forKey: .recipe_type)) ?? ""
-                let recipeType = [recipeStringType]
-                self.init(recipe_type: recipeType)
-            }
+                let recipeType  = try container.decode(RecipeType.self, forKey: .recipe_type)
+                switch recipeType {
+                case .string(let recipeString):
+                    self.init(recipe_type: recipeType, associatedValue: [recipeString])
+                case .stringArray(let recipeStringArray):
+                    self.init(recipe_type: recipeType, associatedValue: recipeStringArray)
+                }
         } catch {
-            self.init(recipe_type: ["n/a"])
+            self.init(recipe_type: RecipeType.stringArray(["n/a"]), associatedValue: ["n/a"])
         }
     }
 }
