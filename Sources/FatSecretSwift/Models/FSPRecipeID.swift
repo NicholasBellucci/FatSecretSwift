@@ -194,13 +194,13 @@ extension RecipeTypes {
     public init(from decoder: Decoder) throws {
         do {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-                let recipeType  = try container.decode(RecipeType.self, forKey: .recipe_type)
-                switch recipeType {
-                case .string(let recipeString):
-                    self.init(recipe_type: recipeType, associatedValue: [recipeString])
-                case .stringArray(let recipeStringArray):
-                    self.init(recipe_type: recipeType, associatedValue: recipeStringArray)
-                }
+            let recipeType  = try container.decode(RecipeType.self, forKey: .recipe_type)
+            switch recipeType {
+            case .string(let recipeString):
+                self.init(recipe_type: recipeType, associatedValue: [recipeString])
+            case .stringArray(let recipeStringArray):
+                self.init(recipe_type: recipeType, associatedValue: recipeStringArray)
+            }
         } catch {
             self.init(recipe_type: RecipeType.stringArray(["n/a"]), associatedValue: ["n/a"])
         }
