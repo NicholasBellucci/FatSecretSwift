@@ -68,14 +68,7 @@ public struct FSPNutrition: Codable, Hashable {
 
 /** A type that is a 'recipe_types' property of FSPRecipe, for decoding FatSecretSwift Recipe Search JSON. 'recipe_type' in FSPRecipeType uses a custom decoder init(from decoder:) in extension to FSPRecipeType, as 'recipe_type' may be a String or Array< String >. */
 public struct FSPRecipeType: Codable, Hashable {
-    public let recipe_type: FatRecipeType
-    public var associatedValue: [String]
-}
-
-
-public enum FatRecipeType: Codable, Hashable {
-    case string(String)
-    case stringArray([String])
+    public let recipe_type: [String]?
 }
 
 
@@ -85,21 +78,17 @@ extension FSPRecipeType {
         case recipe_type
     }
     
-    
     public init(from decoder: Decoder) throws {
+        let container  = try decoder.container(keyedBy: CodingKeys.self)
         do {
-            let container  = try decoder.container(keyedBy: CodingKeys.self)
-            let recipeType = try container.decode(FatRecipeType.self, forKey: .recipe_type)
-            switch recipeType {
-            case .string(let recipeString):
-                self.init(recipe_type: recipeType, associatedValue: [recipeString])
-            case .stringArray(let recipeStringArray):
-                self.init(recipe_type: recipeType, associatedValue: recipeStringArray)
-            }
+            let recipeTypes = try container.decode([String].self, forKey: .recipe_type)
+            self.init(recipe_type: recipeTypes)
         } catch {
-            self.init(recipe_type: FatRecipeType.stringArray(["n/a"]), associatedValue: ["n/a"])
+            let recipeType = try container.decode(String.self, forKey: .recipe_type)
+            self.init(recipe_type: [recipeType])
         }
     }
+
 }
 
 

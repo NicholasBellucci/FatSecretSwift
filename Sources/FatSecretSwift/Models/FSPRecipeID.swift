@@ -176,13 +176,7 @@ extension RecipeImage {
 
 /** A type that is a 'recipe_types' property of FSPSingleRecipe, for decoding FatSecretSwift Recipe ID JSON. */
 public struct RecipeTypes: Codable, Hashable {
-    public let recipe_type: RecipeType
-    public var associatedValue: [String]
-}
-
-public enum RecipeType: Codable, Hashable {
-    case string(String)
-    case stringArray([String])
+    public let recipe_type: [String]?
 }
 
 
@@ -192,17 +186,13 @@ extension RecipeTypes {
     }
     
     public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         do {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            let recipeType  = try container.decode(RecipeType.self, forKey: .recipe_type)
-            switch recipeType {
-            case .string(let recipeString):
-                self.init(recipe_type: recipeType, associatedValue: [recipeString])
-            case .stringArray(let recipeStringArray):
-                self.init(recipe_type: recipeType, associatedValue: recipeStringArray)
-            }
+            let recipeTypes  = try container.decode([String].self, forKey: .recipe_type)
+            self.init(recipe_type: recipeTypes)
         } catch {
-            self.init(recipe_type: RecipeType.stringArray(["n/a"]), associatedValue: ["n/a"])
+            let recipeType  = try container.decode(String.self, forKey: .recipe_type)
+            self.init(recipe_type: [recipeType])
         }
     }
 }
