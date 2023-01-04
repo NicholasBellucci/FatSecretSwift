@@ -25,6 +25,12 @@ private enum HTTPError: LocalizedError {
     }
 }
 
+
+private enum maxSearchResults {
+    static let foods    = 50
+    static let recipes  = 50
+}
+
 /** HTTP Method: POST
  - URL: http://platform.fatsecret.com/rest/server.api
  */
@@ -91,9 +97,10 @@ open class FatSecretClient {
     /** Recipe Search
      - Description: Search for a recipe by name
      */
-    public func searchRecipe(name: String, completion: @escaping (Result<FSPRecipes, FBError>) -> Void) {
+    public func searchRecipe(name: String, maxResults: Int = 20, completion: @escaping (Result<FSPRecipes, FBError>) -> Void) {
         print("\nFatSecretClient/searchRecipe....")
-        FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v2", "must_have_images":"true", "search_expression":name] as Dictionary
+        let max = (0...50).contains(maxResults) ? maxResults : 20   // maxResults cannot be more than 50. Default value is 20.
+        FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v2", "must_have_images":"true", "search_expression":name, "max_results": String(max)] as Dictionary
 
         let components = generateSignature()
         fatSecretRecipeSearchRequest(with: components) { result in
