@@ -106,7 +106,7 @@ open class FatSecretClient {
         fatSecretRecipeSearchRequest(with: components) { result in
             switch result {
             case .success(let recipes):
-                print("Successfully found recipes over internet.")
+//                print("Successfully found recipes over internet.")
                 completion(.success(recipes))
 
             case .failure(let error):
@@ -120,14 +120,13 @@ open class FatSecretClient {
      - Description: Get a recipe item by id
      */
     public func getRecipe(id: String, completion: @escaping (Result<FSPSingleRecipe, FBError>) -> Void) {
-        print("\nFatSecretClient/searching for Recipe ID....")
         FatSecretParams.fatSecret = ["format":"json", "method":"recipe.get", "recipe_id":id] as Dictionary
 
         let components = generateSignature()
         fatSecretRecipeIDRequest(with: components) { result in
             switch result {
             case .success(let recipe):
-                print("Successfully found recipe id over internet.")
+//                print("Successfully found recipe id over internet.")
                 completion(.success(recipe))
 
             case .failure(let error):
