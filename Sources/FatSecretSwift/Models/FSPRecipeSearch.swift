@@ -57,6 +57,24 @@ public struct FSPIngredient: Codable, Hashable {
     public let ingredient: [String]?
 }
 
+
+extension FSPIngredient {
+    public enum CodingKeys: String, CodingKey, CaseIterable {
+        case ingredient
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        do {
+            let ingredients = try container.decode([String].self, forKey: .ingredient)
+            self.init(ingredient: ingredients)
+        } catch {
+            let ingredient = try container.decode(String.self, forKey: .ingredient)
+            self.init(ingredient: [ingredient])
+        }
+    }
+}
+
 /** A type that is a 'recipe_nutritrion' property of FSPRecipe, for decoding FatSecretSwift Recipe Search JSON. Note: Using custum decoder in extension to convert decoded JSON String values in optional Double values. */
 public struct FSPNutrition: Codable, Hashable {
     public let calories: Double?
