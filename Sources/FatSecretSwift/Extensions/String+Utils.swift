@@ -7,10 +7,10 @@ internal extension String {
      Also refered to as percent encoding.
      */
     func getPercentEncodingCharacterSet() -> String {
-        let digits = "0123456789"
-        let lowercase = "abcdefghijklmnopqrstuvwxyz"
-        let uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        let unreserved = "-._~"
+        let digits      = "0123456789"
+        let lowercase   = "abcdefghijklmnopqrstuvwxyz"
+        let uppercase   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        let unreserved  = "-._~"
 
         return digits + lowercase + uppercase + unreserved
     }

@@ -1,9 +1,9 @@
 public struct Food: Decodable {
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case id = "food_id"
-        case name = "food_name"
-        case type = "food_type"
-        case url = "food_url"
+        case id     = "food_id"
+        case name   = "food_name"
+        case type   = "food_type"
+        case url    = "food_url"
         case servings
     }
 

@@ -94,7 +94,7 @@ extension FSPRecipeType {
 
 extension FSPNutrition {
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case calories,carbohydrate, fat, protein
+        case calories, carbohydrate, fat, protein
     }
     
     public init(from decoder: Decoder) throws {

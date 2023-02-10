@@ -3,10 +3,10 @@ public struct Serving: Decodable {
         case calcium, calories, carbohydrate, cholesterol, fat, fiber, iron, potassium, protein, sodium, sugar
         case monounsaturatedFat = "monounsaturated_fat"
         case polyunsaturatedFat = "polyunsaturated_fat"
-        case saturatedFat = "saturated_fat"
-        case transFat = "trans_fat"
-        case vitaminA = "vitamin_a"
-        case vitaminC = "vitamin_c"
+        case saturatedFat       = "saturated_fat"
+        case transFat           = "trans_fat"
+        case vitaminA           = "vitamin_a"
+        case vitaminC           = "vitamin_c"
     }
 
     public let calcium: String?
