@@ -225,7 +225,7 @@ public struct FSPRecipeServingInfo: Codable, Hashable {
     public let sodium: Double?
     public let sugar: Double?
     public let trans_fat: Double?
-    public let vitamin_a: Double?
+//    public let vitamin_a: Double?
     public let vitamin_c: Double?
 }
 
@@ -250,7 +250,7 @@ extension FSPRecipeServingInfo {
         case sodium
         case sugar
         case trans_fat
-        case vitamin_a
+//        case vitamin_a
         case vitamin_c
     }
     
@@ -276,14 +276,14 @@ extension FSPRecipeServingInfo {
             let sodium              = (try? container.decode(String.self, forKey: .sodium)) ?? ""
             let sugar               = (try? container.decode(String.self, forKey: .sugar)) ?? ""
             let trans_fat           = (try? container.decode(String.self, forKey: .trans_fat)) ?? ""
-            let vitamin_a           = (try? container.decode(String.self, forKey: .vitamin_a)) ?? ""
+//            let vitamin_a           = (try? container.decode(String.self, forKey: .vitamin_a)) ?? ""
             let vitamin_c           = (try? container.decode(String.self, forKey: .vitamin_c)) ?? ""
             
             // Convert decoded Strings as Doubles
-            self.init(calcium: Double(calcium), calories: Double(calories), carbohydrate: Double(carbohydrate), cholesterol: Double(cholesterol), fat: Double(fat), fiber: Double(fiber), iron: Double(iron), monounsaturated_fat: Double(monounsaturated_fat), polyunsaturated_fat: Double(polyunsaturated_fat), potassium: Double(potassium), protein: Double(protein), saturated_fat: Double(saturated_fat), serving_size: Double(serving_size), sodium: Double(sodium), sugar: Double(sugar), trans_fat: Double(trans_fat), vitamin_a: Double(vitamin_a), vitamin_c: Double(vitamin_c))
+            self.init(calcium: Double(calcium), calories: Double(calories), carbohydrate: Double(carbohydrate), cholesterol: Double(cholesterol), fat: Double(fat), fiber: Double(fiber), iron: Double(iron), monounsaturated_fat: Double(monounsaturated_fat), polyunsaturated_fat: Double(polyunsaturated_fat), potassium: Double(potassium), protein: Double(protein), saturated_fat: Double(saturated_fat), serving_size: Double(serving_size), sodium: Double(sodium), sugar: Double(sugar), trans_fat: Double(trans_fat), vitamin_c: Double(vitamin_c))
         } catch {
             // If unable to decode 'container' then function returns 0.0 for all properties
-            self.init(calcium: 0.0, calories: 0.0, carbohydrate: 0.0, cholesterol: 0.0, fat: 0.0, fiber: 0.0, iron: 0.0, monounsaturated_fat: 0.0, polyunsaturated_fat: 0.0, potassium: 0.0, protein: 0.0, saturated_fat: 0.0, serving_size: 0.0, sodium: 0.0, sugar: 0.0, trans_fat: 0.0, vitamin_a: 0.0, vitamin_c: 0.0)
+            self.init(calcium: 0.0, calories: 0.0, carbohydrate: 0.0, cholesterol: 0.0, fat: 0.0, fiber: 0.0, iron: 0.0, monounsaturated_fat: 0.0, polyunsaturated_fat: 0.0, potassium: 0.0, protein: 0.0, saturated_fat: 0.0, serving_size: 0.0, sodium: 0.0, sugar: 0.0, trans_fat: 0.0, vitamin_c: 0.0)
         }
     }
     
