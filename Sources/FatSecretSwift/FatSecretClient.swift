@@ -99,7 +99,7 @@ open class FatSecretClient {
      */
     public func searchRecipe(name: String, maxResults: Int = 20, completion: @escaping (Result<FSPRecipes, FBError>) -> Void) {
         let max = (0...50).contains(maxResults) ? maxResults : 20   // maxResults cannot be more than 50. Default value is 20.
-        FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v2", "must_have_images":"true", "search_expression":name, "max_results": String(max)] as Dictionary
+        FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v3", "must_have_images":"true", "search_expression":name, "max_results": String(max)] as Dictionary
 
         let components = generateSignature()
         fatSecretRecipeSearchRequest(with: components) { result in
