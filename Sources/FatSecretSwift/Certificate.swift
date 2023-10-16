@@ -12,8 +12,8 @@ import Security
 
 // For expired + upcoming certificate
 enum kCertificate: String {
-    case renewed    = "CertificateRenewed"      // CertificateRenewed
-    case current    = "fatsecret.com"           // Certificate
+    case renewed    = "CertificateRenewed"      // CertificateRenewed; use placeholder for now
+    case current    = "fatsecretCurrent"        // Certificate
     case domain     = "platform.fatsecret.com"  // domain to validate
     
     var name: String {
