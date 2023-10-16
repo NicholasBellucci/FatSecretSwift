@@ -177,11 +177,13 @@ extension FatSecretClient {
     }
 
     
-    func fatSecretRecipeSearchRequest(with components: URLComponents, completed: @escaping (Result<FSPRecipes, FBError>) -> Void) {
+    func fatSecretRecipeSearchRequest(with components: URLComponents, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completed: @escaping (Result<FSPRecipes, FBError>) -> Void) {
         var request = URLRequest(url: URL(string: String(describing: components).replacingOccurrences(of: "+", with: "%2B"))!)
         request.httpMethod = FatSecretParams.httpType
 
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let session = URLSession(configuration: URLSessionConfiguration.ephemeral, delegate: certPinningDelegate, delegateQueue: nil)
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
             if let _ = error {
                 completed(.failure(.unableToComplete))
                 return
@@ -212,11 +214,13 @@ extension FatSecretClient {
     }
     
     
-    func fatSecretRecipeIDRequest(with components: URLComponents, completed: @escaping (Result<FSPSingleRecipe, FBError>) -> Void) {
+    func fatSecretRecipeIDRequest(with components: URLComponents, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completed: @escaping (Result<FSPSingleRecipe, FBError>) -> Void) {
         var request = URLRequest(url: URL(string: String(describing: components).replacingOccurrences(of: "+", with: "%2B"))!)
         request.httpMethod = FatSecretParams.httpType
 
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let session = URLSession(configuration: URLSessionConfiguration.ephemeral, delegate: certPinningDelegate, delegateQueue: nil)
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
             if let _ = error {
                 completed(.failure(.unableToComplete))
                 return

@@ -10,6 +10,17 @@
 import Foundation
 import Security
 
+// For expired + upcoming certificate
+enum kCertificate: String {
+    case renewed    = "CertificateRenewed"      // CertificateRenewed
+    case current    = "fatsecret.com"           // Certificate
+    case domain     = "platform.fatsecret.com"  // domain to validate
+    
+    var name: String {
+        self.rawValue
+    }
+}
+
 
 struct Certificate {
     let certificate: SecCertificate
@@ -17,10 +28,10 @@ struct Certificate {
 }
 
 extension Certificate {
-    static func localCertificates(with names: [String] = ["CertificateRenewed", "Certificate"],
+    static func localCertificates(with names: [String] = [kCertificate.renewed.name, kCertificate.current.name],
                                   from bundle: Bundle = .main) -> [Certificate] {
         return names.lazy.map({
-            guard let file = bundle.url(forResource: $0, withExtension: "cer"),
+            guard let file = bundle.url(forResource: $0, withExtension: "der"),
                 let data = try? Data(contentsOf: file),
                 let cert = SecCertificateCreateWithData(nil, data as CFData) else {
                     return nil
@@ -55,7 +66,7 @@ class CertificatePinningURLSessionDelegate: NSObject, URLSessionDelegate {
         }
 
         //Set policy to validate domain
-        let policy = SecPolicyCreateSSL(true, "platform.fatsecret.com" as CFString)
+        let policy = SecPolicyCreateSSL(true, kCertificate.domain.name as CFString)
         let policies = NSArray(object: policy)
         SecTrustSetPolicies(serverTrust, policies)
 
