@@ -97,12 +97,12 @@ open class FatSecretClient {
     /** Recipe Search
      - Description: Search for a recipe by name
      */
-    public func searchRecipe(name: String, maxResults: Int = 20, completion: @escaping (Result<FSPRecipes, FBError>) -> Void) {
+    public func searchRecipe(name: String, maxResults: Int = 20, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completion: @escaping (Result<FSPRecipes, FBError>) -> Void) {
         let max = (0...50).contains(maxResults) ? maxResults : 20   // maxResults cannot be more than 50. Default value is 20.
         FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v3", "must_have_images":"true", "search_expression":name, "max_results": String(max)] as Dictionary
 
         let components = generateSignature()
-        fatSecretRecipeSearchRequest(with: components) { result in
+        fatSecretRecipeSearchRequest(with: components, certPinningDelegate: certPinningDelegate) { result in
             switch result {
             case .success(let recipes):
 //                print("Successfully found recipes over internet.")
@@ -118,11 +118,11 @@ open class FatSecretClient {
     /** Recipe
      - Description: Get a recipe item by id
      */
-    public func getRecipe(id: String, completion: @escaping (Result<FSPSingleRecipe, FBError>) -> Void) {
+    public func getRecipe(id: String, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completion: @escaping (Result<FSPSingleRecipe, FBError>) -> Void) {
         FatSecretParams.fatSecret = ["format":"json", "method":"recipe.get", "recipe_id":id] as Dictionary
 
         let components = generateSignature()
-        fatSecretRecipeIDRequest(with: components) { result in
+        fatSecretRecipeIDRequest(with: components, certPinningDelegate: certPinningDelegate) { result in
             switch result {
             case .success(let recipe):
 //                print("Successfully found recipe id over internet.")

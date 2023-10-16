@@ -55,8 +55,8 @@ extension Certificate {
     }
 }
 
-class CertificatePinningURLSessionDelegate: NSObject, URLSessionDelegate {
-    func urlSession(_ session: URLSession,
+public class CertificatePinningURLSessionDelegate: NSObject, URLSessionDelegate {
+    public func urlSession(_ session: URLSession,
                     didReceive challenge: URLAuthenticationChallenge,
                     completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void) {
         guard let serverTrust = challenge.protectionSpace.serverTrust,
