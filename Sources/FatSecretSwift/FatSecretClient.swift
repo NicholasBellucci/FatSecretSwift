@@ -66,11 +66,11 @@ open class FatSecretClient {
     /** Search
      - Description: Search for a food by name
      */
-    public func searchFood(name: String, completion: @escaping (_ foods: Search) -> ()) {
+    public func searchFood(name: String, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completion: @escaping (_ foods: Search) -> ()) {
         FatSecretParams.fatSecret = ["format":"json", "method":"foods.search", "search_expression":name] as Dictionary
 
         let components = generateSignature()
-        fatSecretRequest(with: components) { data in
+        fatSecretRequest(with: components, certPinningDelegate: certPinningDelegate) { data in
             guard let data = data else { return }
             let model = self.retrieve(data: data, type: [String: Search].self)
             let search = model!["foods"]
@@ -81,11 +81,11 @@ open class FatSecretClient {
     /** Food
      - Description: Get a food item by id
      */
-    public func getFood(id: String, completion: @escaping (_ foods: Food) -> ()) {
+    public func getFood(id: String, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completion: @escaping (_ foods: Food) -> ()) {
         FatSecretParams.fatSecret = ["format":"json", "method":"food.get", "food_id":id] as Dictionary
 
         let components = generateSignature()
-        fatSecretRequest(with: components) { data in
+        fatSecretRequest(with: components, certPinningDelegate: certPinningDelegate) { data in
             guard let data = data else { return }
             let model = self.retrieve(data: data, type: [String:Food].self)
             let food = model!["food"]
@@ -142,11 +142,13 @@ open class FatSecretClient {
 }
 
 extension FatSecretClient {
-    fileprivate func fatSecretRequest(with components: URLComponents, completion: @escaping (_ data: Data?)-> ()) {
+    fileprivate func fatSecretRequest(with components: URLComponents, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completion: @escaping (_ data: Data?)-> ()) {
         var request = URLRequest(url: URL(string: String(describing: components).replacingOccurrences(of: "+", with: "%2B"))!)
         request.httpMethod = FatSecretParams.httpType
+        
+        let session = URLSession(configuration: URLSessionConfiguration.ephemeral, delegate: certPinningDelegate, delegateQueue: nil)
 
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = session.dataTask(with: request) { (data, response, error) in
             if let data = data {
                 do {
                     let model = self.retrieve(data: data, type: [String:FSError].self)
