@@ -3,10 +3,10 @@ public struct Serving: Decodable {
         case calcium, calories, carbohydrate, cholesterol, fat, fiber, iron, potassium, protein, sodium, sugar
         case monounsaturatedFat = "monounsaturated_fat"
         case polyunsaturatedFat = "polyunsaturated_fat"
-        case saturatedFat = "saturated_fat"
-        case transFat = "trans_fat"
-        case vitaminA = "vitamin_a"
-        case vitaminC = "vitamin_c"
+        case saturatedFat       = "saturated_fat"
+        case transFat           = "trans_fat"
+//        case vitaminA           = "vitamin_a"
+        case vitaminC           = "vitamin_c"
     }
 
     public let calcium: String?
@@ -24,7 +24,7 @@ public struct Serving: Decodable {
     public let sodium: String?
     public let sugar: String?
     public let transFat: String?
-    public let vitaminA: String?
+//    public let vitaminA: String?
     public let vitaminC: String?
 
     public init(calcium: String?, calories: String?, carbohydrate: String?, cholesterol: String?, fat: String?,
@@ -46,7 +46,7 @@ public struct Serving: Decodable {
         self.sodium = sodium
         self.sugar = sugar
         self.transFat = transFat
-        self.vitaminA = vitaminA
+//        self.vitaminA = vitaminA
         self.vitaminC = vitaminC
     }
 }

@@ -25,6 +25,12 @@ private enum HTTPError: LocalizedError {
     }
 }
 
+
+private enum maxSearchResults {
+    static let foods    = 50
+    static let recipes  = 50
+}
+
 /** HTTP Method: POST
  - URL: http://platform.fatsecret.com/rest/server.api
  */
@@ -60,11 +66,11 @@ open class FatSecretClient {
     /** Search
      - Description: Search for a food by name
      */
-    public func searchFood(name: String, completion: @escaping (_ foods: Search) -> ()) {
+    public func searchFood(name: String, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completion: @escaping (_ foods: Search) -> ()) {
         FatSecretParams.fatSecret = ["format":"json", "method":"foods.search", "search_expression":name] as Dictionary
 
         let components = generateSignature()
-        fatSecretRequest(with: components) { data in
+        fatSecretRequest(with: components, certPinningDelegate: certPinningDelegate) { data in
             guard let data = data else { return }
             let model = self.retrieve(data: data, type: [String: Search].self)
             let search = model!["foods"]
@@ -75,27 +81,74 @@ open class FatSecretClient {
     /** Food
      - Description: Get a food item by id
      */
-    public func getFood(id: String, completion: @escaping (_ foods: Food) -> ()) {
+    public func getFood(id: String, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completion: @escaping (_ foods: Food) -> ()) {
         FatSecretParams.fatSecret = ["format":"json", "method":"food.get", "food_id":id] as Dictionary
 
         let components = generateSignature()
-        fatSecretRequest(with: components) { data in
+        fatSecretRequest(with: components, certPinningDelegate: certPinningDelegate) { data in
             guard let data = data else { return }
             let model = self.retrieve(data: data, type: [String:Food].self)
             let food = model!["food"]
             completion(food!)
         }
     }
+    
+    
+    /** Recipe Search
+     - Description: Search for a recipe by name
+     */
+    public func searchRecipe(name: String, maxResults: Int = 20, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completion: @escaping (Result<FSPRecipes, FBError>) -> Void) {
+        let max = (0...50).contains(maxResults) ? maxResults : 20   // maxResults cannot be more than 50. Default value is 20.
+        FatSecretParams.fatSecret = ["format":"json", "method":"recipes.search.v3", "must_have_images":"true", "search_expression":name, "max_results": String(max)] as Dictionary
+
+        let components = generateSignature()
+        fatSecretRecipeSearchRequest(with: components, certPinningDelegate: certPinningDelegate) { result in
+            switch result {
+            case .success(let recipes):
+//                print("Successfully found recipes over internet.")
+                completion(.success(recipes))
+
+            case .failure(let error):
+                print("Unable to load searched recipes from internet", error.localizedDescription)
+                completion(.failure(.unableToGetRecipes))
+            }
+        }
+    }
+
+    /** Recipe
+     - Description: Get a recipe item by id
+     */
+    public func getRecipe(id: String, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completion: @escaping (Result<FSPSingleRecipe, FBError>) -> Void) {
+        FatSecretParams.fatSecret = ["format":"json", "method":"recipe.get", "recipe_id":id] as Dictionary
+
+        let components = generateSignature()
+        fatSecretRecipeIDRequest(with: components, certPinningDelegate: certPinningDelegate) { result in
+            switch result {
+            case .success(let recipe):
+//                print("Successfully found recipe id over internet.")
+                completion(.success(recipe))
+
+            case .failure(let error):
+                print("Unable to load searched for recipe id from internet", error.localizedDescription)
+                completion(.failure(.unableToGetRecipes))
+            }
+        }
+    }
+    
+    
+    
 
     public init() {}
 }
 
 extension FatSecretClient {
-    fileprivate func fatSecretRequest(with components: URLComponents, completion: @escaping (_ data: Data?)-> ()) {
+    fileprivate func fatSecretRequest(with components: URLComponents, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completion: @escaping (_ data: Data?)-> ()) {
         var request = URLRequest(url: URL(string: String(describing: components).replacingOccurrences(of: "+", with: "%2B"))!)
         request.httpMethod = FatSecretParams.httpType
+        
+        let session = URLSession(configuration: URLSessionConfiguration.ephemeral, delegate: certPinningDelegate, delegateQueue: nil)
 
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = session.dataTask(with: request) { (data, response, error) in
             if let data = data {
                 do {
                     let model = self.retrieve(data: data, type: [String:FSError].self)
@@ -125,6 +178,82 @@ extension FatSecretClient {
         }
     }
 
+    
+    func fatSecretRecipeSearchRequest(with components: URLComponents, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completed: @escaping (Result<FSPRecipes, FBError>) -> Void) {
+        var request = URLRequest(url: URL(string: String(describing: components).replacingOccurrences(of: "+", with: "%2B"))!)
+        request.httpMethod = FatSecretParams.httpType
+
+        let session = URLSession(configuration: URLSessionConfiguration.ephemeral, delegate: certPinningDelegate, delegateQueue: nil)
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if let _ = error {
+                completed(.failure(.unableToComplete))
+                return
+            }
+            
+            // error code '200' = OK, i.e., no error.
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+            
+            // After 'guard' error checks, no get/decode the data
+            do {
+                let decoder = JSONDecoder()
+                let recipes = try decoder.decode(FSPRecipeSearch.self, from: data)
+                completed(.success(recipes.recipes)) // escaping value 'recipes.recipes' is of type 'FSPRecipes'
+            } catch {
+                print("Unable to retreive recipes, error: ", error.localizedDescription)
+                completed(.failure(.invalidData))
+            }
+        }
+        task.resume()
+    }
+    
+    
+    func fatSecretRecipeIDRequest(with components: URLComponents, certPinningDelegate: CertificatePinningURLSessionDelegate? = nil, completed: @escaping (Result<FSPSingleRecipe, FBError>) -> Void) {
+        var request = URLRequest(url: URL(string: String(describing: components).replacingOccurrences(of: "+", with: "%2B"))!)
+        request.httpMethod = FatSecretParams.httpType
+
+        let session = URLSession(configuration: URLSessionConfiguration.ephemeral, delegate: certPinningDelegate, delegateQueue: nil)
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if let _ = error {
+                completed(.failure(.unableToComplete))
+                return
+            }
+            
+            // error code '200' = OK, i.e., no error.
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+            
+            // After 'guard' error checks, no get/decode the data
+            do {
+                let decoder = JSONDecoder()
+                let recipeID = try decoder.decode(FSPRecipeIDSearch.self, from: data)
+                completed(.success(recipeID.recipe)) // escaping value 'recipeID.recipe' is of type 'FSPSingleRecipe'
+            } catch {
+                print("Unable to retreive recipes, error: ", error.localizedDescription)
+                completed(.failure(.invalidData))
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
     fileprivate func generateSignature() -> URLComponents {
         FatSecretParams.oAuth.updateValue(self.timestamp, forKey: "oauth_timestamp")
         FatSecretParams.oAuth.updateValue(self.nonce, forKey: "oauth_nonce")
